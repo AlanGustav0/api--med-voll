@@ -1,4 +1,4 @@
-package med.voll.api.entities;
+package med.voll.api.domain.model;
 
 import med.voll.api.Especialidade;
 

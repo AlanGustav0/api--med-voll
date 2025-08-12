@@ -1,16 +1,16 @@
-package med.voll.api.controller;
+package med.voll.api.adapter.in;
 
-import med.voll.api.entities.DadosMedico;
+import med.voll.api.domain.model.DadosMedico;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/medicos")
+@RequestMapping("/api/cadastro")
 public class MedicoController {
 
-    @PostMapping
+    @PostMapping("/medicos")
     public String cadastrarMedico(@RequestBody DadosMedico medico){
 
         System.out.println("Médico: " + medico.nome() + " cadastrado com sucesso!");
