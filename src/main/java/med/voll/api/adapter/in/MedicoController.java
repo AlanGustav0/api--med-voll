@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/cadastro")
+@RequestMapping("/api/medicos")
 public class MedicoController {
 
-    @PostMapping("/medicos")
-    public String cadastrarMedico(@RequestBody DadosMedico medico){
+    @PostMapping("/cadastrar")
+    public String cadastrarMedico(@RequestBody DadosMedico dadosMedico){
 
-        System.out.println("Médico: " + medico.nome() + " cadastrado com sucesso!");
+        System.out.println("Médico: " + dadosMedico.nome() + " cadastrado com sucesso!");
         return "Médico Cadastrado!";
     }
 }
