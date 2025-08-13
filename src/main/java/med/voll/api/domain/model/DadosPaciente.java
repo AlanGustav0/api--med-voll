@@ -1,3 +1,16 @@
 package med.voll.api.domain.model;
 
-public record DadosPaciente(String nome, String email, String telefone, String cpf,Endereco endereco){}
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public record DadosPaciente(
+        @NotBlank
+        String nome,
+        @NotBlank
+        @Email
+        String email,
+        @NotBlank
+        String telefone,
+        @NotBlank
+        String cpf,
+        Endereco endereco){}
