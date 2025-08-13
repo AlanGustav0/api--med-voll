@@ -31,7 +31,7 @@ public class MedicoController {
     }
 
     @GetMapping("listarMedicos")
-    public ResponseEntity<?> listarMedicos(@PageableDefault(size=3,page=1,sort="nome") Pageable pageable){
+    public ResponseEntity<?> listarMedicos(@PageableDefault(size=3,sort="nome") Pageable pageable){
         try{
 
             var response = medicoUseCase.listarMedicos(pageable);
