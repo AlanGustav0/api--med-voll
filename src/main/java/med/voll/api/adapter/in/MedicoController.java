@@ -1,13 +1,14 @@
 package med.voll.api.adapter.in;
-
-import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import med.voll.api.domain.model.DadosMedico;
+import med.voll.api.domain.model.response.MedicoResponse;
 import med.voll.api.domain.port.in.MedicoUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/medicos")
@@ -17,13 +18,26 @@ public class MedicoController {
     private MedicoUseCase medicoUseCase;
 
     @PostMapping("/cadastrar")
-    @Transactional
-    public String cadastrarMedico(@RequestBody DadosMedico dadosMedico){
+    public ResponseEntity<?> cadastrarMedico(@RequestBody @Valid DadosMedico dadosMedico){
 
-        String response = medicoUseCase.CadastrarMedico(dadosMedico);
+        try{
+            MedicoResponse response = medicoUseCase.cadastrarMedico(dadosMedico);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
-        if(response != null) System.out.printf("Médico %s cadastrado com sucesso!",response);
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao cadastrar Médico");
+        }
 
-        return response;
+    }
+
+    @GetMapping("listarMedicos")
+    public ResponseEntity<?> listarMedicos(@PageableDefault(size=3,page=1,sort="nome") Pageable pageable){
+        try{
+
+            var response = medicoUseCase.listarMedicos(pageable);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar médicos");
+        }
     }
 }
