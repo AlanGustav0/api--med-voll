@@ -28,7 +28,10 @@ public class MedicoEntity {
         @JoinColumn(name = "endereco_id")
         private EnderecoEntity endereco;
 
+        private Boolean ativo;
+
         public MedicoEntity(DadosMedicoDTO medico) {
+                this.ativo = true;
                 this.nome = medico.nome();
                 this.crm = medico.crm();
                 this.email = medico.email();
@@ -48,5 +51,9 @@ public class MedicoEntity {
 
 
 
+        }
+
+        public void excluir() {
+                this.ativo = false;
         }
 }

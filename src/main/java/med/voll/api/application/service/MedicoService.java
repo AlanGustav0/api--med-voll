@@ -33,7 +33,7 @@ public class MedicoService implements MedicoUseCase {
     @Override
     @Transactional
     public Page<MedicoResponse> listarMedicos(Pageable paginacao) {
-        return medicoRepository.findAll(paginacao).map(MedicoResponse::new);
+        return medicoRepository.findAllByAtivoTrue(paginacao);
 
     }
 
@@ -50,15 +50,12 @@ public class MedicoService implements MedicoUseCase {
 
     @Override
     @Transactional
-    public ResultResponse<MedicoResponse> deletarMedico(Long id) {
+    public ResultResponse<MedicoResponse> inativarMedico(Long id) {
         var medico = medicoRepository.getReferenceById(id);
 
-        if(Objects.equals(medico.getId(), id)){
-            medicoRepository.deleteById(id);
-            var medicoExcluido = MedicoResponseMapper.toMedicoResponse(medico);
-            return new ResultResponse<MedicoResponse>(true, "Médico excluído com sucesso!", medicoExcluido);
-        }
+        medico.excluir();
+        var medicoInativo = MedicoResponseMapper.toMedicoResponse(medico);
+        return new ResultResponse<MedicoResponse>(true, "Médico inativado com sucesso!", medicoInativo);
 
-        return new ResultResponse<MedicoResponse>(false, "Ocorreu um erro ao remover o médico!", null);
     }
 }
