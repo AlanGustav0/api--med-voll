@@ -1,6 +1,7 @@
 package med.voll.api.adapter.in;
 
 import jakarta.validation.Valid;
+import med.voll.api.domain.model.AtualizarMedicoDTO;
 import med.voll.api.domain.model.DadosPacienteDTO;
 import med.voll.api.domain.model.response.PacienteResponse;
 import med.voll.api.domain.port.in.PacienteUseCase;
@@ -37,6 +38,26 @@ public class PacienteController {
             return ResponseEntity.status(HttpStatus.OK).body(response);
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar pacientes");
+        }
+    }
+
+    @PutMapping("atualizar")
+    public ResponseEntity<?> atualizarPaciente(@RequestBody @Valid DadosPacienteDTO dadosPaciente){
+        try{
+            var response = pacienteUseCase.atualizarPaciente(dadosPaciente);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar paciente");
+        }
+    }
+
+    @DeleteMapping("inativar/{id}")
+    public ResponseEntity<?> inativarPaciente(@PathVariable Long id){
+        try{
+            var response = pacienteUseCase.inativarPaciente(id);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar médico");
         }
     }
 }
