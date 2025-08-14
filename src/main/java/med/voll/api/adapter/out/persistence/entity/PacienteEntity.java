@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import med.voll.api.domain.model.AtualizarPacienteDTO;
 import med.voll.api.domain.model.DadosPacienteDTO;
 
 @Table(name = "paciente")
@@ -37,7 +38,7 @@ public class PacienteEntity {
         this.endereco = new EnderecoEntity(paciente.endereco());
     }
 
-    public void atualizarInformacoes(DadosPacienteDTO dadosPaciente) {
+    public void atualizarInformacoes(AtualizarPacienteDTO dadosPaciente) {
         if(dadosPaciente.nome() != null){
             this.nome = dadosPaciente.nome();
         }

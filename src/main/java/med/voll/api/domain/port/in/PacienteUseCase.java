@@ -1,6 +1,7 @@
 package med.voll.api.domain.port.in;
 
 import jakarta.validation.Valid;
+import med.voll.api.domain.model.AtualizarPacienteDTO;
 import med.voll.api.domain.model.DadosPacienteDTO;
 import med.voll.api.domain.model.response.PacienteResponse;
 import med.voll.api.domain.model.response.ResultResponse;
@@ -11,7 +12,7 @@ public interface PacienteUseCase {
     PacienteResponse cadastrarPaciente(DadosPacienteDTO paciente);
     Page<PacienteResponse> listarPacientes(Pageable pageable);
 
-    ResultResponse<PacienteResponse> atualizarPaciente(DadosPacienteDTO dadosPaciente);
+    ResultResponse<PacienteResponse> atualizarPaciente(AtualizarPacienteDTO dadosPaciente);
 
     ResultResponse<PacienteResponse> inativarPaciente(Long id);
 }

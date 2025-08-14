@@ -2,6 +2,7 @@ package med.voll.api.adapter.in;
 
 import jakarta.validation.Valid;
 import med.voll.api.domain.model.AtualizarMedicoDTO;
+import med.voll.api.domain.model.AtualizarPacienteDTO;
 import med.voll.api.domain.model.DadosPacienteDTO;
 import med.voll.api.domain.model.response.PacienteResponse;
 import med.voll.api.domain.port.in.PacienteUseCase;
@@ -42,7 +43,7 @@ public class PacienteController {
     }
 
     @PutMapping("atualizar")
-    public ResponseEntity<?> atualizarPaciente(@RequestBody @Valid DadosPacienteDTO dadosPaciente){
+    public ResponseEntity<?> atualizarPaciente(@RequestBody @Valid AtualizarPacienteDTO dadosPaciente){
         try{
             var response = pacienteUseCase.atualizarPaciente(dadosPaciente);
             return ResponseEntity.status(HttpStatus.OK).body(response);

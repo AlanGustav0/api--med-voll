@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import med.voll.api.adapter.mapper.MedicoResponseMapper;
 import med.voll.api.adapter.mapper.PacienteResponseMapper;
 import med.voll.api.adapter.out.persistence.entity.PacienteEntity;
+import med.voll.api.domain.model.AtualizarPacienteDTO;
 import med.voll.api.domain.model.DadosPacienteDTO;
 import med.voll.api.domain.model.response.MedicoResponse;
 import med.voll.api.domain.model.response.PacienteResponse;
@@ -36,7 +37,7 @@ public class PacienteService implements PacienteUseCase {
 
     @Override
     @Transactional
-    public ResultResponse<PacienteResponse> atualizarPaciente(DadosPacienteDTO dadosPaciente) {
+    public ResultResponse<PacienteResponse> atualizarPaciente(AtualizarPacienteDTO dadosPaciente) {
         var paciente = pacienteRepository.getReferenceById(dadosPaciente.id());
         paciente.atualizarInformacoes(dadosPaciente);
 
