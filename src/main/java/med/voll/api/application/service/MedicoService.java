@@ -14,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class MedicoService implements MedicoUseCase {
 
@@ -44,5 +46,19 @@ public class MedicoService implements MedicoUseCase {
         var medicoAtualizado = MedicoResponseMapper.toMedicoResponse(medico);
 
         return new ResultResponse<MedicoResponse>(true, "Médico Atualizado com sucesso!", medicoAtualizado);
+    }
+
+    @Override
+    @Transactional
+    public ResultResponse<MedicoResponse> deletarMedico(Long id) {
+        var medico = medicoRepository.getReferenceById(id);
+
+        if(Objects.equals(medico.getId(), id)){
+            medicoRepository.deleteById(id);
+            var medicoExcluido = MedicoResponseMapper.toMedicoResponse(medico);
+            return new ResultResponse<MedicoResponse>(true, "Médico excluído com sucesso!", medicoExcluido);
+        }
+
+        return new ResultResponse<MedicoResponse>(false, "Ocorreu um erro ao remover o médico!", null);
     }
 }

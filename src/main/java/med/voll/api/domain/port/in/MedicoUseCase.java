@@ -12,4 +12,5 @@ public interface MedicoUseCase {
     MedicoResponse cadastrarMedico(DadosMedicoDTO medico);
     Page<MedicoResponse> listarMedicos(Pageable paginacao);
     ResultResponse<MedicoResponse> atualizarMedico(AtualizarMedicoDTO dadosMedico);
+    ResultResponse<MedicoResponse> deletarMedico(Long id);
 }

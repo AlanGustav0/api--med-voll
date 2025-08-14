@@ -51,4 +51,14 @@ public class MedicoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar médico");
         }
     }
+
+    @DeleteMapping("deletar/{id}")
+    public ResponseEntity<?> deleterMedico(@PathVariable Long id){
+        try{
+            var response = medicoUseCase.deletarMedico(id);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar médico");
+        }
+    }
 }
