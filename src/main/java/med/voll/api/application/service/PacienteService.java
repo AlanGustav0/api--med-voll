@@ -3,7 +3,7 @@ package med.voll.api.application.service;
 import jakarta.transaction.Transactional;
 import med.voll.api.adapter.mapper.PacienteResponseMapper;
 import med.voll.api.adapter.out.persistence.entity.PacienteEntity;
-import med.voll.api.domain.model.DadosPaciente;
+import med.voll.api.domain.model.DadosPacienteDTO;
 import med.voll.api.domain.model.response.PacienteResponse;
 import med.voll.api.domain.port.in.PacienteUseCase;
 import med.voll.api.domain.port.out.PacienteRepository;
@@ -20,7 +20,7 @@ public class PacienteService implements PacienteUseCase {
 
     @Override
     @Transactional
-    public PacienteResponse cadastrarPaciente(DadosPaciente paciente) {
+    public PacienteResponse cadastrarPaciente(DadosPacienteDTO paciente) {
         PacienteEntity pacienteEntity = pacienteRepository.save(new PacienteEntity(paciente));
         return PacienteResponseMapper.toPacienteResponse(pacienteEntity);
     }

@@ -3,7 +3,7 @@ package med.voll.api.domain.model;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
-public record DadosMedico(
+public record DadosMedicoDTO(
 
         @NotBlank
         String nome,
@@ -19,4 +19,4 @@ public record DadosMedico(
         Especialidade especialidade,
         @NotNull
         @Valid
-        Endereco endereco){}
+        EnderecoDTO endereco){}

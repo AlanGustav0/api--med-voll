@@ -3,7 +3,7 @@ package med.voll.api.domain.model;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-public record DadosPaciente(
+public record DadosPacienteDTO(
         @NotBlank
         String nome,
         @NotBlank
@@ -13,4 +13,4 @@ public record DadosPaciente(
         String telefone,
         @NotBlank
         String cpf,
-        Endereco endereco){}
+        EnderecoDTO endereco){}

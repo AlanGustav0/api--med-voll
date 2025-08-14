@@ -1,7 +1,7 @@
 package med.voll.api.adapter.in;
 
 import jakarta.validation.Valid;
-import med.voll.api.domain.model.DadosPaciente;
+import med.voll.api.domain.model.DadosPacienteDTO;
 import med.voll.api.domain.model.response.PacienteResponse;
 import med.voll.api.domain.port.in.PacienteUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class PacienteController {
     @Autowired
     private PacienteUseCase pacienteUseCase;
 
-    @PostMapping("/cadastrar") ResponseEntity<?> cadastrarPaciente(@RequestBody @Valid DadosPaciente paciente){
+    @PostMapping("/cadastrar") ResponseEntity<?> cadastrarPaciente(@RequestBody @Valid DadosPacienteDTO paciente){
         try{
             PacienteResponse response = pacienteUseCase.cadastrarPaciente(paciente);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);

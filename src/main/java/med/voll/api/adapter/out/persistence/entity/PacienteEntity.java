@@ -5,8 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.api.domain.model.DadosPaciente;
-import med.voll.api.domain.model.Endereco;
+import med.voll.api.domain.model.DadosPacienteDTO;
 
 @Table(name = "paciente")
 @Entity(name = "Paciente")
@@ -27,7 +26,7 @@ public class PacienteEntity {
     @JoinColumn(name = "endereco_id")
     EnderecoEntity endereco;
 
-    public PacienteEntity(DadosPaciente paciente) {
+    public PacienteEntity(DadosPacienteDTO paciente) {
         this.nome = paciente.nome();
         this.email = paciente.email();
         this.telefone = paciente.telefone();

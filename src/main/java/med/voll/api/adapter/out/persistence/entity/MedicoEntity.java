@@ -2,12 +2,9 @@ package med.voll.api.adapter.out.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import med.voll.api.domain.model.DadosMedico;
+import med.voll.api.domain.model.AtualizarMedicoDTO;
+import med.voll.api.domain.model.DadosMedicoDTO;
 import med.voll.api.domain.model.Especialidade;
-import med.voll.api.domain.model.response.MedicoResponse;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Table(name = "medicos")
 @Entity(name = "Medico")
@@ -31,12 +28,25 @@ public class MedicoEntity {
         @JoinColumn(name = "endereco_id")
         private EnderecoEntity endereco;
 
-        public MedicoEntity(DadosMedico medico) {
+        public MedicoEntity(DadosMedicoDTO medico) {
                 this.nome = medico.nome();
                 this.crm = medico.crm();
                 this.email = medico.email();
                 this.telefone = medico.telefone();
                 this.especialidade = medico.especialidade();
                 this.endereco = new EnderecoEntity(medico.endereco());
+        }
+
+        public void atualizarInformacoes(AtualizarMedicoDTO dadosMedico){
+
+                if(dadosMedico.nome() != null) this.nome = dadosMedico.nome();
+                if(dadosMedico.telefone() != null) this.telefone = dadosMedico.telefone();
+                if(dadosMedico.email() != null) this.email = dadosMedico.email();
+                if(dadosMedico.endereco() != null) this.endereco = new EnderecoEntity(dadosMedico.endereco());
+
+
+
+
+
         }
 }
