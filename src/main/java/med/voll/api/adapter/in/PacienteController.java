@@ -65,11 +65,8 @@ public class PacienteController {
 
     @GetMapping("detalhar/{id}")
     public ResponseEntity<?> detalharPaciente(@PathVariable Long id){
-        try{
-            var response = pacienteUseCase.detalharPaciente(id);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar paciente");
-        }
+
+         var response = pacienteUseCase.detalharPaciente(id);
+         return ResponseEntity.ok(response);
     }
 }
