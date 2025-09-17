@@ -55,4 +55,12 @@ public class PacienteService implements PacienteUseCase {
         var pacienteInativo = PacienteResponseMapper.toPacienteResponse(paciente);
         return new ResultResponse<PacienteResponse>(true, "Paciente inativado com sucesso!", pacienteInativo);
     }
+
+    @Override
+    public ResultResponse<PacienteResponse> detalharPaciente(Long id) {
+        var paciente = pacienteRepository.getReferenceById(id);
+
+        var detalhamentoPaciente = PacienteResponseMapper.toPacienteResponse(paciente);
+        return new ResultResponse<PacienteResponse>(true, "Solicitação efetuada com sucesso!", detalhamentoPaciente);
+    }
 }

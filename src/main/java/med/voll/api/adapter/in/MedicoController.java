@@ -63,4 +63,14 @@ public class MedicoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar médico");
         }
     }
+
+    @GetMapping("detalhar/{id}")
+    public ResponseEntity<?> detalharMedico(@PathVariable Long id){
+        try{
+            var response = medicoUseCase.detalharMedico(id);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar médico");
+        }
+    }
 }

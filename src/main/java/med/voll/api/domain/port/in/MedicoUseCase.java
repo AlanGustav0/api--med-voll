@@ -13,4 +13,5 @@ public interface MedicoUseCase {
     Page<MedicoResponse> listarMedicos(Pageable paginacao);
     ResultResponse<MedicoResponse> atualizarMedico(AtualizarMedicoDTO dadosMedico);
     ResultResponse<MedicoResponse> inativarMedico(Long id);
+    ResultResponse<MedicoResponse> detalharMedico(Long id);
 }

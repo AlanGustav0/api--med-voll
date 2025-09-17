@@ -58,4 +58,13 @@ public class MedicoService implements MedicoUseCase {
         return new ResultResponse<MedicoResponse>(true, "Médico inativado com sucesso!", medicoInativo);
 
     }
+
+    @Override
+    public ResultResponse<MedicoResponse> detalharMedico(Long id) {
+        var medico = medicoRepository.getReferenceById(id);
+
+        var detalhamentoMedico = MedicoResponseMapper.toMedicoResponse(medico);
+        return new ResultResponse<MedicoResponse>(true, "Solicitação realizada com sucesso!", detalhamentoMedico);
+
+    }
 }

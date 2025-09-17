@@ -62,4 +62,14 @@ public class PacienteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao inativar paciente");
         }
     }
+
+    @GetMapping("detalhar/{id}")
+    public ResponseEntity<?> detalharPaciente(@PathVariable Long id){
+        try{
+            var response = pacienteUseCase.detalharPaciente(id);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao buscar paciente");
+        }
+    }
 }

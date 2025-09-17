@@ -15,4 +15,6 @@ public interface PacienteUseCase {
     ResultResponse<PacienteResponse> atualizarPaciente(AtualizarPacienteDTO dadosPaciente);
 
     ResultResponse<PacienteResponse> inativarPaciente(Long id);
+
+    ResultResponse<PacienteResponse> detalharPaciente(Long id);
 }
