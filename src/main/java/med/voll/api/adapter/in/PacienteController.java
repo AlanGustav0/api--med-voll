@@ -1,7 +1,6 @@
 package med.voll.api.adapter.in;
 
 import jakarta.validation.Valid;
-import med.voll.api.domain.model.AtualizarMedicoDTO;
 import med.voll.api.domain.model.AtualizarPacienteDTO;
 import med.voll.api.domain.model.DadosPacienteDTO;
 import med.voll.api.domain.model.response.PacienteResponse;
@@ -12,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/paciente")
@@ -20,10 +20,11 @@ public class PacienteController {
     @Autowired
     private PacienteUseCase pacienteUseCase;
 
-    @PostMapping("/cadastrar") ResponseEntity<?> cadastrarPaciente(@RequestBody @Valid DadosPacienteDTO paciente){
+    @PostMapping("/cadastrar") ResponseEntity<?> cadastrarPaciente(@RequestBody @Valid DadosPacienteDTO paciente, UriComponentsBuilder uriBuilder){
         try{
             PacienteResponse response = pacienteUseCase.cadastrarPaciente(paciente);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            var uri = uriBuilder.path("/paciente/{id}").buildAndExpand(response.id()).toUri();
+            return ResponseEntity.created(uri).body(response);
 
         }catch(Exception e){
             System.out.println(e);
@@ -56,9 +57,9 @@ public class PacienteController {
     public ResponseEntity<?> inativarPaciente(@PathVariable Long id){
         try{
             var response = pacienteUseCase.inativarPaciente(id);
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar médico");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao inativar paciente");
         }
     }
 }

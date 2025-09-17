@@ -10,6 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/medicos")
@@ -19,11 +20,12 @@ public class MedicoController {
     private MedicoUseCase medicoUseCase;
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<?> cadastrarMedico(@RequestBody @Valid DadosMedicoDTO dadosMedico){
+    public ResponseEntity<?> cadastrarMedico(@RequestBody @Valid DadosMedicoDTO dadosMedico, UriComponentsBuilder uriBuilder){
 
         try{
             MedicoResponse response = medicoUseCase.cadastrarMedico(dadosMedico);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(response.id()).toUri();
+            return ResponseEntity.created(uri).body(response);
 
         }catch(Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao cadastrar Médico");
@@ -56,7 +58,7 @@ public class MedicoController {
     public ResponseEntity<?> inativarMedico(@PathVariable Long id){
         try{
             var response = medicoUseCase.inativarMedico(id);
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar médico");
         }
