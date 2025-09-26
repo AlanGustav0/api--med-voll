@@ -29,7 +29,7 @@ public class TokenService {
                     .withExpiresAt(dataExpiracao())
                     .sign(algoritimo);
         } catch (JWTCreationException exception){
-            throw new RuntimeException("E   rro ao gerar token JWT", exception);
+            throw new RuntimeException("Erro ao gerar token JWT", exception);
         }
     }
 
