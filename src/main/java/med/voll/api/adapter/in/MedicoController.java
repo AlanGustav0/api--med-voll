@@ -9,11 +9,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/medicos")
+@EnableMethodSecurity(securedEnabled = true)
 public class MedicoController {
 
     @Autowired
@@ -65,6 +68,7 @@ public class MedicoController {
     }
 
     @GetMapping("detalhar/{id}")
+    @Secured("ROLE_USER")
     public ResponseEntity<?> detalharMedico(@PathVariable Long id){
         try{
             var response = medicoUseCase.detalharMedico(id);
