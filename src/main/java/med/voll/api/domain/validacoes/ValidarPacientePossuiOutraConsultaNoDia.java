@@ -5,7 +5,9 @@ import med.voll.api.domain.model.DadosAgendamentoConsultaDTO;
 import med.voll.api.domain.port.in.ValidacaoUseCase;
 import med.voll.api.domain.port.out.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ValidarPacientePossuiOutraConsultaNoDia implements ValidacaoUseCase<DadosAgendamentoConsultaDTO> {
 
     @Autowired
