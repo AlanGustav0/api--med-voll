@@ -3,7 +3,6 @@ package med.voll.api.adapter.in;
 import jakarta.validation.Valid;
 import med.voll.api.application.service.ConsultaService;
 import med.voll.api.domain.model.DadosAgendamentoConsultaDTO;
-import med.voll.api.domain.model.response.DetalhamentoConsultaResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;

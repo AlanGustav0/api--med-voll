@@ -27,12 +27,18 @@ public class SecurityConfigurations {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable).sessionManagement((session) ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                         .authorizeHttpRequests(req -> {
-                             req.requestMatchers(HttpMethod.POST, "/login")
-                                     .permitAll()
-                         .anyRequest().authenticated();
-        })
-                .build();
+                         .authorizeHttpRequests(req -> req
+                             .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                                     .requestMatchers(
+                                             "/v3/api-docs/**",
+                                             "/swagger-ui.html",
+                                             "/swagger-ui/**",
+                                             "/swagger-resources/**",
+                                             "/webjars/**",
+                                             "/api-docs/**").permitAll()
+                         .anyRequest().authenticated()
+        ).build();
+
     }
 
     @Bean
