@@ -5,5 +5,5 @@ import med.voll.api.domain.model.response.DetalhamentoConsultaResponse;
 
 public interface ConsultaUseCase {
 
-    void agendar(DadosAgendamentoConsultaDTO dados);
+    DetalhamentoConsultaResponse agendar(DadosAgendamentoConsultaDTO dados);
 }

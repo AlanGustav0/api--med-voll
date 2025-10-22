@@ -1,6 +1,7 @@
 package med.voll.api.application.service;
 
 import jakarta.transaction.Transactional;
+import med.voll.api.adapter.mapper.ConsultaDetalhamentoResponseMapper;
 import med.voll.api.adapter.out.persistence.entity.ConsultaEntity;
 import med.voll.api.adapter.out.persistence.entity.MedicoEntity;
 import med.voll.api.configuration.exceptions.ValidacaoException;
@@ -33,7 +34,7 @@ public class ConsultaService implements ConsultaUseCase {
 
     @Override
     @Transactional
-    public void agendar(DadosAgendamentoConsultaDTO dados) {
+    public DetalhamentoConsultaResponse agendar(DadosAgendamentoConsultaDTO dados) {
 
         if(!pacienteRepository.existsById(dados.idPaciente())){
             throw new ValidacaoException("Id do paciente informado não existe");
@@ -54,7 +55,10 @@ public class ConsultaService implements ConsultaUseCase {
 
         var consulta = new ConsultaEntity(null, medico, paciente, dados.data());
 
-        consultaRepository.save(consulta);
+        var response = consultaRepository.save(consulta);
+
+        return ConsultaDetalhamentoResponseMapper.toConsultaResponse(response);
+
     }
 
     private MedicoEntity escolherMedico(DadosAgendamentoConsultaDTO dados) {
