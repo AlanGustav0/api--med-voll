@@ -5,7 +5,9 @@ import med.voll.api.domain.model.DadosAgendamentoConsultaDTO;
 import med.voll.api.domain.port.in.ValidacaoUseCase;
 import med.voll.api.domain.port.out.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ValidarAgendamentoConsultaDuplicadaMedico implements ValidacaoUseCase<DadosAgendamentoConsultaDTO> {
 
     @Autowired
@@ -13,7 +15,7 @@ public class ValidarAgendamentoConsultaDuplicadaMedico implements ValidacaoUseCa
 
     @Override
     public void validar(DadosAgendamentoConsultaDTO dados) {
-        var existeConsultaMedico = consultaRepository.existsByMedicoAndData(dados.idMedico(),dados.data());
+        var existeConsultaMedico = consultaRepository.existsByMedicoIdAndData(dados.idMedico(),dados.data());
         if(existeConsultaMedico){
             throw  new ValidacaoException("Médico já possui consulta agendada nesse horário");
         }

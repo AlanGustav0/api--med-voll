@@ -7,11 +7,14 @@ import med.voll.api.configuration.exceptions.ValidacaoException;
 import med.voll.api.domain.model.DadosAgendamentoConsultaDTO;
 import med.voll.api.domain.model.response.DetalhamentoConsultaResponse;
 import med.voll.api.domain.port.in.ConsultaUseCase;
+import med.voll.api.domain.port.in.ValidacaoUseCase;
 import med.voll.api.domain.port.out.ConsultaRepository;
 import med.voll.api.domain.port.out.MedicoRepository;
 import med.voll.api.domain.port.out.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ConsultaService implements ConsultaUseCase {
@@ -25,9 +28,12 @@ public class ConsultaService implements ConsultaUseCase {
     @Autowired
     PacienteRepository pacienteRepository;
 
+    @Autowired
+    private List<ValidacaoUseCase> validadores;
+
     @Override
     @Transactional
-    public DetalhamentoConsultaResponse agendar(DadosAgendamentoConsultaDTO dados) {
+    public void agendar(DadosAgendamentoConsultaDTO dados) {
 
         if(!pacienteRepository.existsById(dados.idPaciente())){
             throw new ValidacaoException("Id do paciente informado não existe");
@@ -37,12 +43,13 @@ public class ConsultaService implements ConsultaUseCase {
             throw new ValidacaoException("Id do médico informado não existe");
         }
 
+        validadores.forEach(validador -> validador.validar(dados));
+
         var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
         var medico = escolherMedico(dados);
         var consulta = new ConsultaEntity(null, medico, paciente, dados.data());
 
         consultaRepository.save(consulta);
-        return null;
     }
 
     private MedicoEntity escolherMedico(DadosAgendamentoConsultaDTO dados) {

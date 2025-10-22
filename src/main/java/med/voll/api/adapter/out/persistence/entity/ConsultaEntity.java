@@ -25,7 +25,7 @@ public class ConsultaEntity {
     private MedicoEntity medico;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "peciente_id")
+    @JoinColumn(name = "paciente_id")
     private PacienteEntity paciente;
 
     private LocalDateTime data;
