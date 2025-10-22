@@ -13,5 +13,7 @@ public record DadosAgendamentoConsultaDTO(
 
         @NotNull
         @Future
-        LocalDateTime data
+        LocalDateTime data,
+
+        Especialidade especialidade
 ){}
