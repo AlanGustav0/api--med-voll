@@ -11,6 +11,7 @@ import med.voll.api.domain.model.response.DetalhamentoConsultaResponse;
 import med.voll.api.domain.port.in.ConsultaUseCase;
 import med.voll.api.domain.port.in.ValidacaoUseCase;
 import med.voll.api.domain.port.out.ConsultaRepository;
+import med.voll.api.domain.port.out.MedicoRepository;
 import med.voll.api.domain.port.out.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class ConsultaService implements ConsultaUseCase {
     private ConsultaRepository consultaRepository;
 
     @Autowired
-    MedicoRepositoryImpl medicoRepositoryImpl;
+    MedicoRepository medicoRepositoryImpl;
 
     @Autowired
     PacienteRepository pacienteRepository;
