@@ -1,17 +1,22 @@
 package med.voll.api.domain.port.out;
 
-import jakarta.validation.constraints.NotNull;
 import med.voll.api.adapter.out.persistence.entity.PacienteEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import med.voll.api.domain.model.response.PacienteResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-public interface PacienteRepository extends JpaRepository<PacienteEntity, Long> {
 
-    @Query("""
-            select p.ativo
-            from Paciente p
-            where
-            p.id = :idPaciente
-            """)
-    Boolean findAtivoById(@NotNull Long idPaciente);
+import java.util.List;
+
+public interface PacienteRepository {
+
+    boolean findAtivoById(Long idPaciente);
+
+    PacienteEntity cadastrarPaciente(PacienteEntity paciente);
+
+    PacienteEntity obterPacientePorId(Long idPaciente);
+
+    boolean existePacientePorId(Long idPaciente);
+
+    Page<PacienteResponse> listarTodosOsPacientes(Pageable pageable);
 }

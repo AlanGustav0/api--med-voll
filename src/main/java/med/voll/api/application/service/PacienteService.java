@@ -1,12 +1,11 @@
 package med.voll.api.application.service;
 
 import jakarta.transaction.Transactional;
-import med.voll.api.adapter.mapper.MedicoResponseMapper;
 import med.voll.api.adapter.mapper.PacienteResponseMapper;
 import med.voll.api.adapter.out.persistence.entity.PacienteEntity;
+import med.voll.api.adapter.out.persistence.repository.PacienteRepositoryImpl;
 import med.voll.api.domain.model.AtualizarPacienteDTO;
 import med.voll.api.domain.model.DadosPacienteDTO;
-import med.voll.api.domain.model.response.MedicoResponse;
 import med.voll.api.domain.model.response.PacienteResponse;
 import med.voll.api.domain.model.response.ResultResponse;
 import med.voll.api.domain.port.in.PacienteUseCase;
@@ -20,25 +19,25 @@ import org.springframework.stereotype.Service;
 public class PacienteService implements PacienteUseCase {
 
     @Autowired
-    private PacienteRepository pacienteRepository;
+    private PacienteRepositoryImpl pacienteRepository;
 
     @Override
     @Transactional
     public PacienteResponse cadastrarPaciente(DadosPacienteDTO paciente) {
-        PacienteEntity pacienteEntity = pacienteRepository.save(new PacienteEntity(paciente));
+        PacienteEntity pacienteEntity = pacienteRepository.cadastrarPaciente(new PacienteEntity(paciente));
         return PacienteResponseMapper.toPacienteResponse(pacienteEntity);
     }
 
     @Override
     @Transactional
     public Page<PacienteResponse> listarPacientes(Pageable pageable) {
-        return pacienteRepository.findAll(pageable).map(PacienteResponse::new);
+        return pacienteRepository.listarTodosOsPacientes(pageable);
     }
 
     @Override
     @Transactional
     public ResultResponse<PacienteResponse> atualizarPaciente(AtualizarPacienteDTO dadosPaciente) {
-        var paciente = pacienteRepository.getReferenceById(dadosPaciente.id());
+        var paciente = pacienteRepository.obterPacientePorId(dadosPaciente.id());
         paciente.atualizarInformacoes(dadosPaciente);
 
         var pacienteAtualizado = PacienteResponseMapper.toPacienteResponse(paciente);
@@ -49,7 +48,7 @@ public class PacienteService implements PacienteUseCase {
     @Override
     @Transactional
     public ResultResponse<PacienteResponse> inativarPaciente(Long id) {
-        var paciente = pacienteRepository.getReferenceById(id);
+        var paciente = pacienteRepository.obterPacientePorId(id);
 
         paciente.excluir();
         var pacienteInativo = PacienteResponseMapper.toPacienteResponse(paciente);
@@ -58,7 +57,7 @@ public class PacienteService implements PacienteUseCase {
 
     @Override
     public ResultResponse<PacienteResponse> detalharPaciente(Long id) {
-        var paciente = pacienteRepository.getReferenceById(id);
+        var paciente = pacienteRepository.obterPacientePorId(id);
 
         var detalhamentoPaciente = PacienteResponseMapper.toPacienteResponse(paciente);
         return new ResultResponse<PacienteResponse>(true, "Solicitação efetuada com sucesso!", detalhamentoPaciente);

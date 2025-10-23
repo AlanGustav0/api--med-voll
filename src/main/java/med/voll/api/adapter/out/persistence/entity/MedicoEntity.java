@@ -22,13 +22,14 @@ public class MedicoEntity {
         private String crm;
 
         @Enumerated(EnumType.STRING)
+        @Column(name = "especialidade")
         private Especialidade especialidade;
 
         @OneToOne(cascade = CascadeType.ALL)
         @JoinColumn(name = "endereco_id")
         private EnderecoEntity endereco;
 
-        private Boolean ativo;
+        private boolean ativo;
 
         public MedicoEntity(DadosMedicoDTO medico) {
                 this.ativo = true;

@@ -4,18 +4,18 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 public record EnderecoDTO(
-         @NotBlank
+        @NotBlank
          String logradouro,
-         @NotBlank
+        @NotBlank
          String bairro,
-         @NotBlank
+        @NotBlank
          @Pattern(regexp = "\\d{8}")
          String cep,
-         @NotBlank
+        @NotBlank
          String cidade,
-         @NotBlank
+        @NotBlank
          String uf,
-         String numero,
-         String complemento) {
+        String numero,
+        String complemento, Object o) {
 
 }
